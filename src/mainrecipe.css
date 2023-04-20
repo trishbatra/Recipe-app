@@ -1,0 +1,14 @@
+.myrec{
+  padding: 25px;
+  display: flex;
+}
+
+.imgg {
+    height:450px;
+    width: 450px;
+    margin-top: 18px;
+    border-radius: 100%;
+}
+.childd{
+  padding: 25px
+}
