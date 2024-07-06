@@ -1,31 +1,39 @@
 import {React, useEffect, useState , useRef} from 'react'
 import Nav from './Nav'
 import '../home.css'
-import w from '../Images/w.png'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import { BsPen } from 'react-icons/bs';
 import { AiFillDelete } from 'react-icons/ai';
+import { FaGithub, FaLinkedin  } from "react-icons/fa";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Btn from './Btn';
+
+// import './././'
 const Home = () => {
   const theForm = useRef(null)
   const [urRecipes, seturRecipes] = useState([])
+  const [isDisabled, setisDisabled] = useState(false)
+  const textRef = useRef(null)
   useEffect(() => {
-    fetch("http://localhost:5000/getrecipe/recipe", {
-      method: "GET",
-      headers: { 
-        'content-type': "application/json",
-        'auth-token': localStorage.getItem("tkn")
-      }
-    })
-    .then(res=>res.json())
-    .then(ress=> seturRecipes(ress.rec))
+    if (localStorage.getItem("tkn")) {
+      fetch("http://localhost:5001/getrecipe/specificrecipe", {
+        method: "GET",
+        headers: { 
+          'content-type': "application/json",
+          'auth-token': localStorage.getItem("tkn")
+        }
+      })
+      .then(res=>res.json())
+      .then(ress=> seturRecipes(ress.rec))
+
+    }
   }, [])
   function setR(arr){
     seturRecipes(arr)
   }
   let deleteIt = async (id)=>{
-    fetch(`http://localhost:5000/getrecipe/delete/${id}`,{method : 'DELETE'})
+    fetch(`http://localhost:5001/getrecipe/delete/${id}`,{method : 'DELETE'})
     .then(res=>res.json())
     .then(ress=>handleResponse(ress.recipeToDelete))
     .catch(err=>toast.error(`${err}`, {
@@ -53,7 +61,7 @@ const Home = () => {
       theme: "colored",
     });
   }
-  const [updatedRecipe, setupdatedRecipe] = useState({name: "", description: "",image : "",ingredients: []  })
+  const [updatedRecipe, setupdatedRecipe] = useState({name: "", description: "",image : "",ingredients: ""  })
   function setID(id){
     localStorage.setItem("Id", id)
     if(    theForm.current.style.display == "block"){
@@ -64,15 +72,23 @@ const Home = () => {
   }
   function updateRecipe() {
     console.log(localStorage.getItem("Id"))
-    fetch(`http://localhost:5000/getrecipe/update/${localStorage.getItem("Id")}`, {
+    const formData = new FormData()
+    if(updateRecipe.name !== ""){
+      formData.append("name",updatedRecipe.name)
+    }
+    if(updateRecipe.description !== ""){
+      formData.append("description",updatedRecipe.description)
+    }
+    if(updateRecipe.ingredients !== ""){
+      formData.append("ingredients",updatedRecipe.ingredients)
+    }
+    if(updateRecipe.image !== null){
+      formData.append("image",updatedRecipe.image)
+    }
+    console.log(formData.name)
+    fetch(`http://localhost:5001/getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        name: updatedRecipe.name,
-        description: updatedRecipe.description,
-        image: updatedRecipe.image,
-        ingredients: updatedRecipe.ingredients,
-      }),
+      body: formData,
     })
       .then((res)=>res.json())
       .then((ress) => handleRESS(ress))
@@ -106,15 +122,32 @@ const Home = () => {
 
   function handleOnChange(e){
       setupdatedRecipe({ ...updatedRecipe, [e.target.name] : e.target.value} )
+      console.log(updatedRecipe)
+  }
+  function handleFileChange(e){
+    setupdatedRecipe({...updatedRecipe, image: e.target.files[0]})
+    console.log(updatedRecipe)
   }
   function closee(){
     theForm.current.style.display = "none"
+  }
+  const makeItVisible = (e,ref)=>{
+    if(ref.current.disabled){
+      setisDisabled(true)
+    }
+  }
+  const hideIt = (e,ref)=>{
+    console.log(ref.current.disabled)
+    if(ref.current.disabled){
+      setisDisabled(false)
+      
+    }
   }
   return (
     <>
         <Nav ur={setR }/>
         <div className="containerr">
-        <img  id='img' src={w} alt="Image"/>
+        <img  id='img' src="Images/w.png" alt="Image"/>
         <div className="descriptionn">
           <h2 className='headd'>KitchenExchange </h2>
           <p className='paraa'>  Welcome to our recipe sharing app, where you can discover and share your favorite recipes with foodies from around the world! Whether you're a professional chef, a home cook, or just someone who loves to experiment in the kitchen, this app is the perfect platform to showcase your culinary skills.
@@ -131,14 +164,29 @@ const Home = () => {
         <div  id='card1' className="card" >
           <div className="card-content">
             <h2>Post a Recipe</h2>
-            <Link to="/post" className="button">Get Started</Link>
+            { isDisabled ? <p  className='tooltipBox'> First login to Post Recipes </p> : <p  className='tooltipBoxNotDisabled'> First login to Post Recipes </p>  }
+            
+            {!localStorage.getItem("tkn") &&  
+            <div onMouseEnter={(e)=>{makeItVisible(e,textRef)}} onMouseLeave={(e)=>{hideIt(e,textRef)}} >
+            <button  ref={textRef} title='please login first to post a recipe'  className="button" disabled="true" >
+              <Link  to="/post" >Get Started</Link>
+            </button> 
+            </div>}
+            {localStorage.getItem("tkn") &&  <Link  to="/post" ><button className="button" >
+              Get Started
+            </button> 
+            </Link>
+            }
+
           </div>
         </div>
 
       <div  id='card2' className="card" >
         <div className="card-content">
           <h2>See Other Recipes</h2>
-          <Link to="/recipes" className="button">Browse Now</Link>
+          <button className="button" >
+               <Link to="/recipes"   title="Explore recipes of other users"  >Browse Now</Link>
+          </button>
         </div>
       </div>
       </div>
@@ -148,31 +196,34 @@ const Home = () => {
               <span  onClick={closee} class="close-icon">&#x2716;</span>
             <form>
               <label for="name">Recipe Name</label>
-              <input  onChange={handleOnChange} value={updatedRecipe.name} type="text" id="name" name="name" placeholder="Enter recipe name"/>
+              <input   className="update" onChange={handleOnChange}  type="text" id="name" name="name" placeholder="Enter recipe name"/>
               <label for="description">Description</label>
-              <textarea  onChange={handleOnChange} value={updateRecipe.description} id="description" name="description" placeholder="Enter recipe description"></textarea>
+              <textarea  className="update"  onChange={handleOnChange}  id="description" name="description" placeholder="Enter recipe description"></textarea>
               <label for="image">Image URL</label>
-              <input type="text" onChange={handleOnChange} value={updateRecipe.image} id="image" name="image" placeholder="Enter image URL"/>
+              <input type="file" className="update"  onChange={handleFileChange} id="image" name="image" placeholder="Enter image URL"/>
               <label for="ingredients">Ingredients</label>
-              <textarea onChange={handleOnChange} value={updateRecipe.ingredients} id="ingredients" name="ingredients" placeholder="Enter recipe ingredients"></textarea>
+              <textarea className="update"  onChange={handleOnChange} id="ingredients" name="ingredients" placeholder="Enter recipe ingredients"></textarea>
             </form>
              <button  id='updateBTN' onClick={updateRecipe}> Update </button>
         </div>  
         </div>
       <div id='urr' className="your">
         <h2 id='h'> Your Recipes  </h2>
-        { urRecipes.length===0?<div className='rec-line' >  Post some reicpes to see your recipes  </div> : <div className="specific-recipes">
+        {!localStorage.getItem("tkn")?  <div className="rec-line">Create an Account or Login to Start Posting Recipes</div> : urRecipes.length===0?<div className='rec-line' >  Post some reicpes to see your recipes  </div> : <div className="specific-recipes">
             { urRecipes.map((e)=>{ 
               return <div className='flex-child' >
-                <a href="#f"><BsPen  onClick={()=>{setID(e._id)}}  id='upd'   className='icons' /></a>
-                <AiFillDelete onClick={()=>{deleteIt(e._id)}} id='del' className='icons' />
+                <div className='delIcon'> 
+                <a href="#f" className='iconUPD'><BsPen size={25} onClick={()=>{setID(e._id)}}  /></a>
+                <AiFillDelete className='iconUPD'  size={25} onClick={()=>{deleteIt(e._id)}}  />
+                </div>
                 <img className='imggg' src={`${e.image}`} alt="" />
                 <h2> {e.name} </h2>
                 <p> {e.description.substring(0,150)}... </p>
-                <button theRec={e._id}  className='b'  > Read Full </button>
+                <Btn namee={e._id}   className='b'  > Read Full </Btn>
               </div>
             })}
         </div>}
+            <img src="../../public/images/cardd.jpg" alt="" srcset="" />
       </div>
       <footer>
       <div className="container">
@@ -180,10 +231,8 @@ const Home = () => {
       <h2>About Us</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel sapien a justo tincidunt elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec a nibh id est laoreet congue. Aliquam ac lorem mi. Nullam dictum suscipit aliquam. Sed mollis ex at lacus consectetur luctus. Sed eget libero euismod, malesuada elit vel, ultrices tellus. Quisque quis sapien et lorem imperdiet fringilla vel a nibh. Duis interdum aliquet nisl, eget dictum odio tincidunt vitae.</p>
       <div className="social-icons">
-        <a><i className="fab fa-facebook"></i></a>
-        <a><i className="fab fa-pinterest"></i></a>
-        <a><i className="fab fa-twitter"></i></a>
-        <a><i className="fab fa-instagram"></i></a>
+        <Link className='iconn' ><FaGithub/></Link>
+        <Link className='iconn' ><FaLinkedin/></Link>
       </div>
       </div>
     </div>

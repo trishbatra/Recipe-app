@@ -4,13 +4,19 @@
   gap: 20px; 
   border-radius: 40px;
   padding: 30px 20px;
+  margin: 0px  200px;
 }
-  
-.flex-child {
+.tag{
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px 20px;
+}
+.child {
   border: 2.75px solid #76bebe;
   border-radius: 10px;
   box-shadow: 0 0 35px rgba(0, 0, 0, 0.2);
   padding: 15px;
+  text-align: center;
 }
   li{
     list-style: none;
@@ -52,4 +58,20 @@
     margin-bottom: 66%;
     position: relative;
     left: 78%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .parent{
+      display: grid;
+      grid-template-columns: repeat(1,340px);
+      padding: 0px 10px;
+      margin: 0px 10px;
+      align-content: center;
+    }
+    #del{
+      display: none;
+    }
+    .child{
+      text-align: center;
+    }
   }

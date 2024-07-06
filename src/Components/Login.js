@@ -8,7 +8,7 @@ const Login = () => {
     setcreds({...creds,[e.target.name] : e.target.value}) 
   }
   async function logUserIn(){
-    let user = await  fetch(`http://localhost:5000/auth/login`, {
+    let user = await  fetch(`http://localhost:5001/auth/login`, {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({mail : creds.email, pass: creds.pass})

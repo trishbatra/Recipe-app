@@ -1,17 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 #img{
-    height: 500px;
-    width:  500px;
+    height: 490px;
+    width:  550px;
 }
 .rec-line{
   text-align: center;
   font-weight: bold;
   margin: 25px 0px;
 }
+.tooltipBoxNotDisabled{
+  display: none;
+}
+.tooltipBox{
+  background-color: #549090;
+  padding: 15px 20px;
+  border-radius: 10px;
+  z-index: 1;
+  box-shadow: 2px 2px 45px black;
+  color: white ;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+
+}
 .icons{
   cursor: pointer;
   font-size: 26px;
-  margin-left: 15px;
+  /* margin-left: 15px; */
 }
 #updateBTN {
   background-color: #4CAF50;
@@ -56,6 +70,8 @@ body{
 .paraa{
   color: #549090;
   text-shadow: 4px 4px 130px #549090;
+  font-size: 17px;
+  padding: 0px 15px;
 }
 .containerr {
     display: flex;
@@ -84,22 +100,23 @@ body{
     line-height: 1.5;
   }
   .headd {
-    font-size: 24px;
+    font-size: 34px;
     margin-bottom: 10px;
     color: #549090;
     text-align: center;
   }
   .cards{
-    padding: 25px;
+    padding: 35px;
+    margin: 0px 30px;
   }
   .card {
-    height: 400px;
+    height: 550px;
     width: 50%;
     display: inline-block;
     background-size: cover;
     background-position: center center;
     position: relative;
-    border-radius: 5px;
+    border-radius: 55px;
   }
   
   .card-content {
@@ -117,24 +134,34 @@ body{
   
   .button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 20px 15px;
     background-color: #549090;
     color: #E8E8E8;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
     transition: background-color 0.3s;
+    border: none;
   }
   
   .button:hover {
     background-color: #E8E8E8;
     color: #549090;
   }
+  
+  .button:disabled,
+  .button.disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
 #card1{
-    background-image: url('Images/cardd.jpg');
+    background-image: url('../public/Images/cardd.jpg');
 }
 #card2{
-    background-image: url('Images/card.jpg');
+    background-image: url('../public/Images/card.jpg');
 }
 footer {
   background-color: #f7f7f7;
@@ -172,16 +199,12 @@ footer {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
+  text-align: center;
+  margin: 20px;
 }
-
-.social-icons a {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-.social-icons a i {
-  font-size: 20px;
-  transition: all 0.3s ease;
+.iconn{
+  margin: 7px;
+  font-size: 19px;
 }
 .b{
     display: inline-block;
@@ -204,7 +227,7 @@ footer {
     gap: 20px; 
     border-radius: 40px;
     padding: 30px 20px;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 input{
@@ -226,12 +249,16 @@ textarea::placeholder {
     width: 250px;
     margin-top: 18px;
     border-radius: 100%;
+    /* align-items: start; */
+    z-index: 1;
+    left: 0px;
 }
 .flex-child {
   padding: 12px;
-  border: 2px blueviolet solid;
+  border: 2px #76bebe solid;
   border-radius: 55px;
   margin-left: 9px;
+  text-align: center;
 }
 form {
   max-width: 600px;
@@ -272,15 +299,7 @@ button[type="submit"] {
   border-radius: 5px;
   cursor: pointer;
 }
-.b{
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+
 a{
   text-decoration: none;
   color: inherit;
@@ -359,4 +378,132 @@ a{
 
 .close-icon:hover {
   color: red;
+}
+.delIcon{
+  display: flex;
+  position: relative;
+
+}
+.imggg{
+  border-radius: 20px;
+  position: relative;
+  height: 230px;
+  max-width: 10px 0px;
+}
+.btn{
+  position: relative;
+  /* left: 20px; */
+}
+.iconUPD{
+  position: relative;
+  left: 270px;
+  margin: 10px 10px;
+
+}
+@media only screen and (max-width: 768px) {
+  #img{
+    display: none;
+  }
+  .descriptionn{
+    padding: 10px 20px;
+    text-align: center;
+    width: auto;
+  }
+  .headd{
+    text-align: center;
+    font-size: 24px;
+  }
+  .paraa{
+    text-align: center;
+  }
+  .cards{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .card{
+    height: 400px;
+    width: 300px;
+    margin: 10px;
+    border-radius: 15px;
+    border : none;
+  }
+  .card h2{
+    font-size: 25px;
+    text-shadow: 2px 2px 15px black;
+  }
+  .button{
+    padding: 14px 14px;
+    font-size: 0.85rem;
+  }
+  .card-content{
+    text-align: center;
+    width: full;
+  }
+  .about-us{
+    width: full;
+    text-align: center;
+  }
+  /* .specific-recipes {
+    display: grid;
+    grid-template-columns: repeat(3, 420px);
+    gap: 20px; 
+    border-radius: 40px;
+    padding: 30px 20px;
+    justify-content: center;
+  } */
+  .flex-child {
+    padding: 7px 10px;
+    border: 2px #76bebe solid;
+    /* border-radius: 45px; */
+    margin-left: 5px;
+    width: 310px;
+    text-align: center;
+  }
+   .specific-recipes{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 35px;
+   }
+   .icons{
+    /* font-size: 5px; */
+    /* position: relative; */
+    /* left: 1px; */
+    /* right: 20px;/ */
+    font-size: 16px;
+    }
+    /* #upd{
+      /* left: 12px; */
+      */
+    .delIcon{
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      right: 350px;
+    }
+    .imggg{
+      /* margin-right: 10px; */
+      /* position: relative;
+      left: 0.25px;
+      border-radius: 15px; */
+      height: 170px;
+      /* margin-right: 20px; */
+      position: relative;
+      /* left: 1px; */
+      left: 0px;
+      /* right: 100px; */
+    }
+    
+    .form-container{
+      width: 100vw;
+    }
+    .update{
+      width: 100%;
+    }
+    .iconUPD{
+     margin:5px 10px; 
+     position: relative;
+     left: 185px;
+    }
 }

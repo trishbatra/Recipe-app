@@ -38,9 +38,9 @@ const Nav = (props) => {
       <div class="navbar-label">KitchenExchange - Exchange your passion for cooking</div>
       <div class="navbar-links">
         <Link to="/">Home</Link>
-        <Link to="/post">Post Recipe</Link>
-        <Link to="/recipes">See Recipes</Link>
-        {!localStorage.getItem("tkn")?<Link to="/login">Login</Link>: <button onClick={logUserOut} className='navBtn'> Logout </button>}
+        {localStorage.getItem("tkn") && <Link to="/post">Post Recipe</Link>}
+        <Link  title='explore recipes of other users'to="/recipes">See Recipes</Link>
+        {!localStorage.getItem("tkn")?<Link className='navbar-links' to="/login">Login</Link>: <Link onClick={logUserOut} className='navbar-links'> Logout </Link>}
       </div>
     </nav>
     </div>

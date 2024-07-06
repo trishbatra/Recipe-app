@@ -7,9 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn'
 const Recipecard = (props) => {
     const [r, setr] = useState([])
-    console.log(r)
     useEffect(() => {
-      fetch("http://localhost:5000/getrecipe/recipe", {
+      fetch("http://localhost:5001/getrecipe/recipe", {
         method : "GET",
         headers :{
             'Content-Type'  : 'application/json',
@@ -17,7 +16,7 @@ const Recipecard = (props) => {
         }
       })
       .then(res=> res.json())
-      .then(ress=> setr(ress.rec))
+      .then(ress=> setr(ress))
       .catch(err=>alert(err))
     }, [])
     function handleResponse(ress){
@@ -34,24 +33,10 @@ const Recipecard = (props) => {
         theme: "colored",
         });
     }
-    let deleteIt = async (id)=>{
-      fetch(`http://localhost:5000/getrecipe/delete/${id}`,{method : 'DELETE'})
-      .then(res=>res.json())
-      .then(ress=>handleResponse(ress.recipeToDelete))
-      .catch(err=>toast.error(`${err}`, {
-        position: "bottom-center",
-        autoClose: 500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        }) )
-    }
+
   return (
     <> 
-     <ToastContainer
+     {/* <ToastContainer
           position="bottom-center"
           autoClose={500}
           hideProgressBar={false}
@@ -62,15 +47,15 @@ const Recipecard = (props) => {
           draggable
           pauseOnHover
           theme="dark"
-        />
+        /> */}
+    <h3 className='tag' > Explore recipes Of all the Users </h3>
     <div className='parent' >
        {r.map(elem=>{
           return <div className='child'  key={elem._id} >
-           <BsPen id='upd'  className='icons' />
-           <AiFillDelete onClick={()=>{deleteIt(elem._id)}} id='del' className='icons' />
-           <img  className='img' src={`${elem.image}`} alt="" />
+           <img  className='img' src={elem.image} alt="" />
            <h3> {elem.name} </h3>
            <p>{elem.description.substring(0,150)}......</p>
+           <p>Created By: {elem.user.name}</p>
            <Btn  namee={elem._id} />
          </div>
      })}

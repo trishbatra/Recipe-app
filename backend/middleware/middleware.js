@@ -1,6 +1,18 @@
 const jwt = require('jsonwebtoken');
 const secret = "sirftujantahai";
+const multer =  require("multer")
+const path =  require("path")
 
+const storage = multer.diskStorage({
+  destination: (req,file,cb)=>{
+    cb(null, '../public/Images')
+  },
+  filename: (req,file,cb)=>{
+    console.log("file", file)
+    cb(null, Date.now() + path.extname(file.originalname) )
+  }
+})
+const upload  = multer({storage: storage})
 function fetchUser(req, res, next) {
   const token = req.header('auth-token');
   if (!token) {
@@ -18,5 +30,6 @@ function fetchUser(req, res, next) {
 }
 
 module.exports = {
-  fetchUser
+  fetchUser,
+  upload
 };

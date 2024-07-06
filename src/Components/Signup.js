@@ -11,7 +11,7 @@ const Signup = () => {
   let history = useNavigate()
   function signUserUp(e){
     e.preventDefault()
-    fetch(`http://localhost:5000/auth/createUser`, {method: "POST", headers: {
+    fetch(`http://localhost:5001/auth/createUser`, {method: "POST", headers: {
       'Content-Type': 'application/json'
     }, 
     body: JSON.stringify({name: creds.name, email: creds.email, password: creds.password})})

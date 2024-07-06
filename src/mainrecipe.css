@@ -12,3 +12,14 @@
 .childd{
   padding: 25px
 }
+
+@media only screen and (max-width: 768px) {
+  .imgg{
+    height: 250px;
+    width: 250px;
+  }
+  .myrec{
+    flex-direction: column;
+    align-items: center;
+  }
+}

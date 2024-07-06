@@ -6,9 +6,9 @@ const Recipes = () => {
 
   useEffect( () => {
     async function getRecipes(){
-      let rs = await fetch('http://localhost:5000/getrecipe/recipe')
+      let rs = await fetch('http://localhost:5001/getrecipe/recipe')
       let rss = await rs.json()
-      setrecipe(rss.recipes)
+      setrecipe(rss)
     }
     getRecipes()
   }, [])

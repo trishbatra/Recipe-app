@@ -1,11 +1,18 @@
 const express = require("express")
 const getRecipe = express.Router()
-const { fetchUser } = require("../middleware/middleware");
+const { fetchUser, upload } = require("../middleware/middleware");
 const { recipeModell } = require("../models/recipe");
 const { userModel } = require("../models/user");
+// const {upload} = require("../middleware")
+getRecipe.get("/recipe", async (req,res)=>{
+  const recipes = await recipeModell.find({}).populate("user","name")
+  if (!recipes) {
+    return res.sendStatus(400).send("no recipes found")
+  }
+  return res.json(recipes)
+})
 
-
-getRecipe.get("/recipe",fetchUser,async (req,res)=>{
+getRecipe.get("/specificrecipe",fetchUser,async (req,res)=>{
     try {
         const rec = await recipeModell.find({
             user : req.user
@@ -22,14 +29,16 @@ getRecipe.get("/recipe/:id", async(req,res)=>{
   }
   res.json({found})
 })
-getRecipe.put("/update/:id", async(req,res)=>{
+getRecipe.put("/update/:id", upload.single("image") ,async(req,res)=>{
   try {
-    let {name , description, image, ingredients} = req.body 
+    let {name , description, ingredients} = req.body 
     let updatedREC = {}
+    console.log(req.body)
     if(name){updatedREC.name = name}
     if(description){updatedREC.description = description}
-    if(image){updatedREC.image = image}
+    if(req.file){updatedREC.image = `Images/${req.file.filename}`}
     if(ingredients){updatedREC.ingredients = ingredients}
+    console.log(updatedREC)
     let recipeToBeUpdated = await recipeModell.findById(req.params.id)
     recipeToBeUpdated  = await  recipeModell.findByIdAndUpdate(req.params.id,{$set: updatedREC}, {new: true})
      res.json({recipeToBeUpdated}) 

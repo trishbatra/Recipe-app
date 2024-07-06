@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import recipeContext from '../Context/recipeContext'
 import Nav from './Nav'
 import '../mainrecipe.css'
+// import MainImages from "./MainImages/1720167103101.jpg"
 const Rec = (props) => {
   const object = useContext(recipeContext)
   let {obh} = object

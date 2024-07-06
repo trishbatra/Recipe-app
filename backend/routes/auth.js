@@ -60,6 +60,17 @@ auth.post("/login", body('email').isEmail(),
             res.json(error)
         }
 })
+auth.post("/createManyUsersAtOnce", async (req,res)=>{
+    const usersArray = req.body 
+    let theSalt = await bcrypt.genSalt(10)
+    const result  = await Promise.all(usersArray.map(async (e)=>{ // [1,2,3]
+        const hasedPass = await bcrypt.hash(e['password'],theSalt )
+        const eToPush = {name  :e.name, email: e.email, password :hasedPass}
+        return eToPush
+    }))
+    await userModel.insertMany(result)
+    return res.send("hogya check kar")
+})
 auth.post("/getUser", fetchUser ,async (req,res)=>{
     try {
         let userId  = req.user.id
@@ -69,6 +80,10 @@ auth.post("/getUser", fetchUser ,async (req,res)=>{
         console.log(error.message)
         res.status(500).send("Internal Server error")
     }
+})
+auth.get("/getAllUsers", async (req,res)=>{
+    const users = await userModel.find({user: 1})
+    res.send(users)
 })
 module.exports = {
     auth
