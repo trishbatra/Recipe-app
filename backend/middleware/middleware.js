@@ -12,6 +12,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname) )
   }
 })
+
 const upload  = multer({storage: storage})
 function fetchUser(req, res, next) {
   const token = req.header('auth-token');
