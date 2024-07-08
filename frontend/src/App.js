@@ -8,10 +8,23 @@ import Login from './Components/Login';
 import Recipes from './Components/Recipes';
 import Rec from './Components/Rec';
 import RecipeState from './Context/RecipeState';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div className="App">
+            <ToastContainer
+        position="bottom-center"
+        autoClose={400}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <RecipeState>
       <Routes>
             <Route exact path="/" element={<Home/>}></Route>

@@ -22,18 +22,7 @@ const Nav = (props) => {
   }
   return (
     <div>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={400}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+
     <nav>
       <div class="navbar-label">KitchenExchange - Exchange your passion for cooking</div>
       <div class="navbar-links">

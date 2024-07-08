@@ -48,18 +48,7 @@ const Signup = () => {
   return (
     <>
     <Nav/>
-    <ToastContainer
-          position="bottom-center"
-          autoClose={500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
+
     <div className='a' >
       <h1> Sign up now free </h1>
       <form>
