@@ -6,7 +6,7 @@ const Recipes = () => {
 
   useEffect( () => {
     async function getRecipes(){
-      let rs = await fetch('http://localhost:5001/getrecipe/recipe')
+      let rs = await fetch('https://recipe-app-2-n3ax.onrender.com/getrecipe/recipe')
       let rss = await rs.json()
       setrecipe(rss)
     }

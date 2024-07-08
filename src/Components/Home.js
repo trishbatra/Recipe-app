@@ -17,7 +17,7 @@ const Home = () => {
   const textRef = useRef(null)
   useEffect(() => {
     if (localStorage.getItem("tkn")) {
-      fetch("http://localhost:5001/getrecipe/specificrecipe", {
+      fetch("https://recipe-app-2-n3ax.onrender.com/getrecipe/specificrecipe", {
         method: "GET",
         headers: { 
           'content-type': "application/json",
@@ -33,7 +33,7 @@ const Home = () => {
     seturRecipes(arr)
   }
   let deleteIt = async (id)=>{
-    fetch(`http://localhost:5001/getrecipe/delete/${id}`,{method : 'DELETE'})
+    fetch(`https://recipe-app-2-n3ax.onrender.com/getrecipe/delete/${id}`,{method : 'DELETE'})
     .then(res=>res.json())
     .then(ress=>handleResponse(ress.recipeToDelete))
     .catch(err=>toast.error(`${err}`, {
@@ -86,7 +86,7 @@ const Home = () => {
       formData.append("image",updatedRecipe.image)
     }
     console.log(formData.name)
-    fetch(`http://localhost:5001/getrecipe/update/${localStorage.getItem("Id")}`, {
+    fetch(`https://recipe-app-2-n3ax.onrender.com/getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
     })

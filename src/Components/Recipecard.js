@@ -8,7 +8,7 @@ import Btn from './Btn'
 const Recipecard = (props) => {
     const [r, setr] = useState([])
     useEffect(() => {
-      fetch("http://localhost:5001/getrecipe/recipe", {
+      fetch("https://recipe-app-2-n3ax.onrender.com/getrecipe/recipe", {
         method : "GET",
         headers :{
             'Content-Type'  : 'application/json',
