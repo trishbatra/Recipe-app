@@ -17,6 +17,7 @@ postRecipe.post("/post", upload.single('image'), fetchUser, async  (req,res)=>{
         const rec = new recipeModell({name , description, image : `Images/${req.file.filename}`, ingredients, user: req.user})
         // console.log("rec", await rec)
         let createdRecipe = await rec.save()
+        console.log("createdRecipe", createdRecipe)
         res.send(createdRecipe)
     } catch (error) {
         console.log(error)
