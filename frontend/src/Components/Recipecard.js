@@ -6,15 +6,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn'
 const Recipecard = (props) => {
-    const [r, setr] = useState([])
+  const [r, setr] = useState([])
+
     useEffect(() => {
-      fetch("https://recipe-app-2-n3ax.onrender.com/getrecipe/recipe", {
-        method : "GET",
-        headers :{
-            'Content-Type'  : 'application/json',
-            'auth-token'  :   localStorage.getItem("tkn")
-        }
-      })
+      fetch("https://recipe-app-2-n3ax.onrender.com/getrecipe/recipe")
       .then(res=> res.json())
       .then(ress=> setr(ress))
       .catch(err=>alert(err))
@@ -36,19 +31,8 @@ const Recipecard = (props) => {
 
   return (
     <> 
-     {/* <ToastContainer
-          position="bottom-center"
-          autoClose={500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        /> */}
     <h3 className='tag' > Explore recipes Of all the Users </h3>
+    {r.length ===0 && <p style={{textAlign: "center", fontSize: "30px"}}> Getting recipes  please wait 🙏  ...  </p>}
     <div className='parent' >
        {r.map(elem=>{
           return <div className='child'  key={elem._id} >
