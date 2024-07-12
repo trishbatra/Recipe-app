@@ -466,15 +466,10 @@ a{
     padding: 10px 35px;
    }
    .icons{
-    /* font-size: 5px; */
-    /* position: relative; */
-    /* left: 1px; */
-    /* right: 20px;/ */
+
     font-size: 16px;
     }
-    /* #upd{
-      /* left: 12px; */
-      */
+
     .delIcon{
       display: flex;
       flex-direction: column;
@@ -482,16 +477,13 @@ a{
       right: 350px;
     }
     .imggg{
-      /* margin-right: 10px; */
-      /* position: relative;
-      left: 0.25px;
-      border-radius: 15px; */
+
       height: 170px;
-      /* margin-right: 20px; */
+
       position: relative;
-      /* left: 1px; */
+
       left: 0px;
-      /* right: 100px; */
+
     }
     
     .form-container{

@@ -9,7 +9,7 @@ import Recipes from './Components/Recipes';
 import Rec from './Components/Rec';
 import RecipeState from './Context/RecipeState';
 import { ToastContainer } from 'react-toastify';
-
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <div className="App">
@@ -27,13 +27,13 @@ function App() {
       />
       <RecipeState>
       <Routes>
-            <Route exact path="/" element={<Home/>}></Route>
-            <Route exact path="/About" element={<About/>}></Route>
-            <Route exact path="/post" element={<Postrecipe/>}></Route>
-            <Route exact path="/signup" element={<Signup/>}></Route>
-            <Route exact path="/login" element={<Login/>}></Route>
-            <Route exact path="/recipes" element={<Recipes/>}></Route>
-            <Route exact path="/rec" element={<Rec/>}></Route>
+            <Route  path="/" element={<Home/>}></Route>
+            <Route  path="/About" element={<About/>}></Route>
+            <Route  path="/post" element={<Postrecipe/>}></Route>
+            <Route  path="/signup" element={<Signup/>}></Route>
+            <Route  path="/login" element={<Login/>}></Route>
+            <Route  path="/recipes" element={<Recipes/>}></Route>
+            <Route  path="/rec" element={<Rec/>}></Route>
       </Routes>
       </RecipeState>
     </div>
