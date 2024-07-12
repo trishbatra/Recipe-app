@@ -1,8 +1,8 @@
 import {React , useState} from 'react'
 import Nav from './Nav'
 import '../postrecipe.css'
-import { Link, redirect, useNavigate } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 const Signup = () => {
   const [creds, setcreds] = useState({name: "",email: "", password: ""})
   function setCreds(e){

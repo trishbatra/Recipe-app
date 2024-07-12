@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import recipeContext from '../Context/recipeContext'
 const Btn = (props) => {
   const object = useContext(recipeContext)
-  let {obh, getObj} = object
+  let { getObj} = object
   
   return (
     <div>

@@ -1,11 +1,11 @@
 import {React, useEffect, useState , useRef} from 'react'
 import Nav from './Nav'
 import '../home.css'
-import { Link, redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { BsPen } from 'react-icons/bs';
 import { AiFillDelete } from 'react-icons/ai';
 import { FaGithub, FaLinkedin  } from "react-icons/fa";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn';
 
@@ -48,7 +48,7 @@ const Home = () => {
       }) )
   }
   function handleResponse(ress){
-    let a = urRecipes.filter((elem)=>{  return elem._id!==ress._id})
+    let a = urRecipes.filter((elem)=>{  return elem._id !== ress._id})
     seturRecipes(a)
     toast.error('DELETED', {
       position: "bottom-center",
@@ -64,7 +64,7 @@ const Home = () => {
   const [updatedRecipe, setupdatedRecipe] = useState({name: "", description: "",image : "",ingredients: ""  })
   function setID(id){
     localStorage.setItem("Id", id)
-    if(    theForm.current.style.display == "block"){
+    if(    theForm.current.style.display === "block"){
       theForm.current.style.display = "none"
     }else{
       theForm.current.style.display = "block"
@@ -107,7 +107,7 @@ const Home = () => {
   }
   function handleRESS(response){
     const newArr = urRecipes.map((e)=>{
-      if(e._id == response.recipeToBeUpdated
+      if(e._id === response.recipeToBeUpdated
         ._id){
         e.name = response.recipeToBeUpdated.name
         e.description = response.recipeToBeUpdated.description
@@ -147,7 +147,7 @@ const Home = () => {
     <>
         <Nav ur={setR }/>
         <div className="containerr">
-        <img  id='img' src="Images/w.png" alt="Image"/>
+        <img  id='img' src="Images/w.png" alt=''/>
         <div className="descriptionn">
           <h2 className='headd'>KitchenExchange </h2>
           <p className='paraa'>  Welcome to our recipe sharing app, where you can discover and share your favorite recipes with foodies from around the world! Whether you're a professional chef, a home cook, or just someone who loves to experiment in the kitchen, this app is the perfect platform to showcase your culinary skills.

@@ -1,8 +1,6 @@
 import {React, useState,useEffect} from 'react'
 import '../recipeComp.css'
-import { BsPen } from 'react-icons/bs';
-import { AiFillDelete } from 'react-icons/ai';
-import { toast, ToastContainer } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn'
 const Recipecard = (props) => {
@@ -14,20 +12,7 @@ const Recipecard = (props) => {
       .then(ress=> setr(ress))
       .catch(err=>alert(err))
     }, [])
-    function handleResponse(ress){
-      let a = r.filter((elem)=>{  return elem._id!==ress._id})
-      setr(a)
-      toast.error('DELETED', {
-        position: "bottom-center",
-        autoClose: 500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        });
-    }
+    
 
   return (
     <> 
