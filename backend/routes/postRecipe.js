@@ -10,6 +10,7 @@ postRecipe.post("/post", upload.single('image'), fetchUser, async  (req,res)=>{
         if(!name || !description || !ingredients){
             return res.status(400).json({err: "Bhai yaar detaisl ton dalde recipe ki😤"})
         }
+        console.log(`req.body ${req.body} and ${req.file}`)
         if(!req.file){
             return res.status(400).json({err: "image mei koi dikat hai"})
         }
@@ -17,7 +18,7 @@ postRecipe.post("/post", upload.single('image'), fetchUser, async  (req,res)=>{
         const rec = new recipeModell({name , description, image : `Images/${req.file.filename}`, ingredients, user: req.user})
         // console.log("rec", await rec)
         let createdRecipe = await rec.save()
-        console.log("createdRecipe", createdRecipe)
+        // console.log("createdRecipe", createdRecipe)
         res.send(createdRecipe)
     } catch (error) {
         console.log(error)
