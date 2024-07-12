@@ -21,7 +21,7 @@ const Postrecipe = () => {
     formData.append('description', recipeDetail.description);
     formData.append('image', recipeDetail.image);
     formData.append('ingredients', recipeDetail.ingredients);
-    let post = await fetch(`http://localhost:5001/postrecipe/post`, {
+    let post = await fetch(`https://recipe-app-2-n3ax.onrender.com/postrecipe/post`, {
       method: 'POST',
       headers: {
         'auth-token': localStorage.getItem("tkn")
