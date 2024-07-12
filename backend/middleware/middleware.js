@@ -2,9 +2,10 @@ const jwt = require('jsonwebtoken');
 const secret = "sirftujantahai";
 const multer =  require("multer")
 const path =  require("path")
+
 const storage = multer.diskStorage({
   destination: (req,file,cb)=>{
-    cb(null, '../frontend/public/Images')
+    cb(null, '../../frontend/public/Images')
   },
   filename: (req,file,cb)=>{
     console.log("file", file)
