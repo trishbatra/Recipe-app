@@ -2,8 +2,8 @@ const express = require("express")
 const getRecipe = express.Router()
 const { fetchUser, upload } = require("../middleware/middleware");
 const { recipeModell } = require("../models/recipe");
-const { userModel } = require("../models/user");
-// const {upload} = require("../middleware")
+
+
 getRecipe.get("/recipe", async (req,res)=>{
   const recipes = await recipeModell.find({}).populate("user","name")
   if (!recipes) {
@@ -29,7 +29,7 @@ getRecipe.get("/recipe/:id", async(req,res)=>{
   }
   res.json({found})
 })
-getRecipe.put("/update/:id", upload.single("image") ,async(req,res)=>{
+getRecipe.put("/update/:id",async(req,res)=>{
   try {
     let {name , description, ingredients} = req.body 
     let updatedREC = {}
