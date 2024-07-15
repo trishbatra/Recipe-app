@@ -2,17 +2,16 @@ const express = require("express")
 const { recipeModell } = require("../models/recipe")
 const { fetchUser, upload } = require("../middleware/middleware")
 const postRecipe = express.Router()
-const path = require("path")
+const multer = require("multer")
+const upload = multer();
 
-
-postRecipe.post("/post",  fetchUser, async  (req,res)=>{
+postRecipe.post("/post",fetchUser, upload.none() ,async  (req,res)=>{
     try {
         let {name , description, ingredients, image} = req.body 
-        console.log(req.body)
+        console.log("req.body", req.body)
         if(!name || !description || !ingredients|| !image){
             return res.status(400).json({err: "Bhai yaar detaisl ton dalde recipe ki😤"})
         }
-        console.log(req.file)
         const rec = new recipeModell({name , description, image : image, ingredients, user: req.user})
         let createdRecipe = await rec.save()
         res.send(createdRecipe)
