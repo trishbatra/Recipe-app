@@ -94,17 +94,20 @@ const Home = () => {
       formData.append("image",url.secure_url)
     }
 
-    if(updateRecipe.name !== ""){
+    if(updatedRecipe.name !== ""){
+      console.log("change")
       formData.append("name",updatedRecipe.name)
     }
-    if(updateRecipe.description !== ""){
+    if(updatedRecipe.description !== ""){
       formData.append("description",updatedRecipe.description)
     }
-    if(updateRecipe.ingredients !== ""){
+    if(updatedRecipe.ingredients !== ""){
       formData.append("ingredients",updatedRecipe.ingredients)
     }
-
-
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+    console.log(formData)
     fetch(`${process.env.REACT_APP_backend_url}getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
@@ -142,9 +145,12 @@ const Home = () => {
 
   function handleOnChange(e){
       setupdatedRecipe({ ...updatedRecipe, [e.target.name] : e.target.value} )
+      console.log(updatedRecipe)
   }
   function handleFileChange(e){
     setupdatedRecipe({...updatedRecipe, image: e.target.files[0]})
+    console.log(updatedRecipe)
+
   }
   function closee(){
     theForm.current.style.display = "none"
@@ -210,7 +216,6 @@ const Home = () => {
        <div className=' form-container ' >
               <h3>Fill the details you want to update</h3>
               <span  onClick={closee} class="close-icon">&#x2716;</span>
-            <form>
               <label for="name">Recipe Name</label>
               <input   className="update" onChange={handleOnChange}  type="text" id="name" name="name" placeholder="Enter recipe name"/>
               <label for="description">Description</label>
@@ -219,7 +224,6 @@ const Home = () => {
               <input type="file" className="update"  onChange={handleFileChange} id="image" name="image" placeholder="Enter image URL"/>
               <label for="ingredients">Ingredients</label>
               <textarea className="update"  onChange={handleOnChange} id="ingredients" name="ingredients" placeholder="Enter recipe ingredients"></textarea>
-            </form>
               {isloading && <ColorRing
                 visible={true}
                 height="80"
