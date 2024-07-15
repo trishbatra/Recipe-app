@@ -8,12 +8,14 @@ import { FaGithub, FaLinkedin  } from "react-icons/fa";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn';
+import { ColorRing } from 'react-loader-spinner';
 
-// import './././'
 const Home = () => {
   const theForm = useRef(null)
   const [urRecipes, seturRecipes] = useState([])
   const [isDisabled, setisDisabled] = useState(false)
+  const [isloading, setisloading] = useState(false)
+  const [updatedRecipe, setupdatedRecipe] = useState({name: "", description: "",image : null,ingredients: ""  })
   const textRef = useRef(null)
   useEffect(() => {
     if (localStorage.getItem("tkn")) {
@@ -69,7 +71,6 @@ const Home = () => {
       theme: "colored",
     });
   }
-  const [updatedRecipe, setupdatedRecipe] = useState({name: "", description: "",image : "",ingredients: ""  })
   function setID(id){
     localStorage.setItem("Id", id)
     if(    theForm.current.style.display === "block"){
@@ -78,8 +79,21 @@ const Home = () => {
       theForm.current.style.display = "block"
     }
   }
-  function updateRecipe() {
+  async function updateRecipe() {
+    setisloading(true)
     const formData = new FormData()
+    if(updatedRecipe.image != null){
+      const imgData = new FormData()
+      imgData.append("file", updatedRecipe.image )
+      imgData.append("upload_preset",'images_preset' )
+      let cloudName = process.env.REACT_APP_cloud_name
+      let resourceType = 'image' 
+      const api_url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`
+      const response = await fetch(api_url, {method: "POST", body: imgData})
+      const url = await response.json()
+      formData.append("image",url.secure_url)
+    }
+
     if(updateRecipe.name !== ""){
       formData.append("name",updatedRecipe.name)
     }
@@ -89,9 +103,8 @@ const Home = () => {
     if(updateRecipe.ingredients !== ""){
       formData.append("ingredients",updatedRecipe.ingredients)
     }
-    if(updateRecipe.image !== null){
-      formData.append("image",updatedRecipe.image)
-    }
+
+
     fetch(`${process.env.REACT_APP_backend_url}getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
@@ -110,6 +123,7 @@ const Home = () => {
           theme: "colored",
         })
       );
+      setisloading(false)
   }
   function handleRESS(response){
     const newArr = urRecipes.map((e)=>{
@@ -143,7 +157,6 @@ const Home = () => {
   const hideIt = (e,ref)=>{
     if(ref.current.disabled){
       setisDisabled(false)
-      
     }
   }
   return (
@@ -194,7 +207,7 @@ const Home = () => {
       </div>
       </div>
       <div ref={theForm} className='updateForm '>
-       <div   className=' form-container ' >
+       <div className=' form-container ' >
               <h3>Fill the details you want to update</h3>
               <span  onClick={closee} class="close-icon">&#x2716;</span>
             <form>
@@ -207,6 +220,19 @@ const Home = () => {
               <label for="ingredients">Ingredients</label>
               <textarea className="update"  onChange={handleOnChange} id="ingredients" name="ingredients" placeholder="Enter recipe ingredients"></textarea>
             </form>
+              {isloading && <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={['#549090', '#549090', '#549090', '#549090', '#549090']}
+                />
+              }
+
+              {isloading && <p> recipe is getting updated please wait.... </p>
+              }
              <button  id='updateBTN' onClick={updateRecipe}> Update </button>
         </div>  
         </div>
