@@ -11,13 +11,14 @@ import Btn from './Btn';
 
 // import './././'
 const Home = () => {
+  console.log("trish",process.env.REACT_APP_trish)
   const theForm = useRef(null)
   const [urRecipes, seturRecipes] = useState([])
   const [isDisabled, setisDisabled] = useState(false)
   const textRef = useRef(null)
   useEffect(() => {
     if (localStorage.getItem("tkn")) {
-      fetch("https://recipe-app-2-n3ax.onrender.com/getrecipe/specificrecipe", {
+      fetch(`${process.env.REACT_APP_backend_url}getrecipe/specificrecipe`, {
         method: "GET",
         headers: { 
           'content-type': "application/json",
@@ -33,7 +34,7 @@ const Home = () => {
     seturRecipes(arr)
   }
   let deleteIt = async (id)=>{
-    fetch(`https://recipe-app-2-n3ax.onrender.com/getrecipe/delete/${id}`,{method : 'DELETE'})
+    fetch(`${process.env.REACT_APP_backend_url}getrecipe/delete/${id}`,{method : 'DELETE'})
     .then(res=>res.json())
     .then(ress=>handleResponse(ress.recipeToDelete))
     .catch(err=>toast.error(`${err}`, {
@@ -86,7 +87,7 @@ const Home = () => {
       formData.append("image",updatedRecipe.image)
     }
     console.log(formData.name)
-    fetch(`https://recipe-app-2-n3ax.onrender.com/getrecipe/update/${localStorage.getItem("Id")}`, {
+    fetch(`${process.env.REACT_APP_backend_url}getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
     })

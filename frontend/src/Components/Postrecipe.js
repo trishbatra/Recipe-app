@@ -2,12 +2,14 @@ import {React, useRef, useState} from 'react'
 import '../postrecipe.css'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {ColorRing} from 'react-loader-spinner'
 import Nav from './Nav';
 const Postrecipe = () => {
   const myRef = useRef()
   const [recipeDetail, setrecipeDetail] = useState({name: "", description: "",image : null,ingredients: []  })
+  const [loading, setloading] = useState(false)
   function empty(){
-    setrecipeDetail({name: "", description: "",image : "",ingredients: []})
+    setrecipeDetail({name: "", description: "",image : null,ingredients: []})
   }
 
   const handleFileChange = (e) => {
@@ -16,12 +18,22 @@ const Postrecipe = () => {
   };
   async function sumbitRecipes(e){
     e.preventDefault()
+    setloading(true)
+    const data = new FormData()
+    data.append("file", recipeDetail.image )
+    data.append("upload_preset",'images_preset' )
+    let cloudName = process.env.REACT_APP_cloud_name
+    let resourceType = 'image' 
+    const api_url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`
+    let uploadPostt =  await fetch(api_url, {method: "POST", body: data })
+    let responseCloudinary =  await uploadPostt.json()
+
     const formData = new FormData();
     formData.append('name', recipeDetail.name);
     formData.append('description', recipeDetail.description);
-    formData.append('image', recipeDetail.image);
+    formData.append('image', responseCloudinary.secure_url);
     formData.append('ingredients', recipeDetail.ingredients);
-    let post = await fetch(`https://recipe-app-2-n3ax.onrender.com/postrecipe/post`, {
+    let post = await fetch(`${process.env.REACT_APP_backend_url}postrecipe/post`, {
       method: 'POST',
       headers: {
         'auth-token': localStorage.getItem("tkn")
@@ -42,6 +54,7 @@ const Postrecipe = () => {
         theme: "dark",
         });
       empty()
+      setloading(false)
     }else{
       alert("Bhai kya kar raha hai yaar tu")
     }
@@ -87,8 +100,17 @@ const Postrecipe = () => {
         <label for="ingredients">Ingredients</label>
         <textarea  onChange={handleOnChange} value={recipeDetail.ingredients}   id="ingredients" name="ingredients" required></textarea>
       </div>
-      
-    <button className='b' type="submit">Post Recipe</button>
+    { loading && <p>  Recipe is getting posted please wait... </p>}
+    { loading && <ColorRing
+      visible={true}
+      height="80"
+      width="80"
+      ariaLabel="color-ring-loading"
+      wrapperStyle={{}}
+      wrapperClass="color-ring-wrapper"
+      colors={['#549090', '#549090', '#549090', '#549090', '#549090']}
+      /> }
+    <button disabled={loading} className='b' type="submit">Post Recipe</button>
     </form>
 
     </div>

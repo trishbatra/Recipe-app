@@ -1,13 +1,13 @@
 import {React, useState,useEffect} from 'react'
 import '../recipeComp.css'
-// import { toast } from 'react-toastify';
+import {MagnifyingGlass} from 'react-loader-spinner'
 import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn'
 const Recipecard = (props) => {
   const [r, setr] = useState([])
 
     useEffect(() => {
-      fetch("https://recipe-app-2-n3ax.onrender.com/getrecipe/recipe")
+      fetch(`${process.env.REACT_APP_backend_url}getrecipe/recipe`)
       .then(res=> res.json())
       .then(ress=> setr(ress))
       .catch(err=>alert(err))
@@ -17,7 +17,18 @@ const Recipecard = (props) => {
   return (
     <> 
     <h3 className='tag' > Explore recipes Of all the Users </h3>
-    {r.length ===0 && <p style={{textAlign: "center", fontSize: "30px"}}> Getting recipes  please wait 🙏  ...  </p>}
+    {r.length ===0 && <p style={{textAlign: "center"}} > <MagnifyingGlass
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="magnifying-glass-loading"
+          wrapperStyle={{}}
+          wrapperClass="magnifying-glass-wrapper"
+          glassColor="#c0efff"
+          color="#e15b64"
+        />
+      </p>}
+    {r.length ===0 && <p style={{textAlign: "center", fontSize: "30px"}}> fetching recipes  please wait   ...  </p>}
     <div className='parent' >
        {r.map(elem=>{
           return <div className='child'  key={elem._id} >

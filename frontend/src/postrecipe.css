@@ -55,6 +55,12 @@ button[type="submit"] {
 .b:hover{
   background-color: #3e8e41;
 }
+.b:disabled{
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 button[type="submit"]:hover {
   background-color: #3e8e41;
 }

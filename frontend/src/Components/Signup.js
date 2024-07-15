@@ -11,7 +11,7 @@ const Signup = () => {
   let history = useNavigate()
   function signUserUp(e){
     e.preventDefault()
-    fetch(`https://recipe-app-2-n3ax.onrender.com/auth/createUser`, {method: "POST", headers: {
+    fetch(`${process.env.REACT_APP_backend_url}auth/createUser`, {method: "POST", headers: {
       'Content-Type': 'application/json'
     }, 
     body: JSON.stringify({name: creds.name, email: creds.email, password: creds.password})})
