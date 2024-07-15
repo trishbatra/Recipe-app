@@ -2,7 +2,7 @@ import {React, useRef, useState} from 'react'
 import '../postrecipe.css'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {ColorRing} from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 import Nav from './Nav';
 const Postrecipe = () => {
   const myRef = useRef()
@@ -27,7 +27,7 @@ const Postrecipe = () => {
     const api_url = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`
     let uploadPostt =  await fetch(api_url, {method: "POST", body: data })
     let responseCloudinary =  await uploadPostt.json()
-
+                                                                                                                                                  
     const formData = new FormData();
     formData.append('name', recipeDetail.name);
     formData.append('description', recipeDetail.description);
