@@ -1,6 +1,6 @@
 const express = require("express")
 const { recipeModell } = require("../models/recipe")
-const { fetchUser, upload } = require("../middleware/middleware")
+const { fetchUser } = require("../middleware/middleware")
 const postRecipe = express.Router()
 const multer = require("multer")
 const upload = multer();
