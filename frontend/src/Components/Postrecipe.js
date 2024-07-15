@@ -32,6 +32,9 @@ const Postrecipe = () => {
     formData.append('description', recipeDetail.description);
     formData.append('image', responseCloudinary.secure_url);
     formData.append('ingredients', recipeDetail.ingredients);
+    for (var pair of formData.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+  }
     let post = await fetch(`${process.env.REACT_APP_backend_url}postrecipe/post`, {
       method: 'POST',
       headers: {

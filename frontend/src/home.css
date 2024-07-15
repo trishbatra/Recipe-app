@@ -26,7 +26,6 @@
 .icons{
   cursor: pointer;
   font-size: 26px;
-  /* margin-left: 15px; */
 }
 #updateBTN {
   background-color: #4CAF50;
@@ -228,8 +227,7 @@ footer {
     gap: 20px; 
     border-radius: 40px;
     padding: 30px 20px;
-    margin: 0px 120px;
-    /* justify-content: center; */
+    margin: 0px 100px;
 }
 
 input{
@@ -394,7 +392,6 @@ a{
 }
 .btn{
   position: relative;
-  /* left: 20px; */
 }
 .iconUPD{
   position: relative;
@@ -447,14 +444,7 @@ a{
     width: full;
     text-align: center;
   }
-  /* .specific-recipes {
-    display: grid;
-    grid-template-columns: repeat(3, 420px);
-    gap: 20px; 
-    border-radius: 40px;
-    padding: 30px 20px;
-    justify-content: center;
-  } */
+
   .flex-child {
     padding: 7px 10px;
     border: 2px #76bebe solid;
@@ -466,26 +456,23 @@ a{
     display: flex;
     flex-direction: column;
     padding: 10px 35px;
+    /* margin-right: 45px; */
+    align-items: center;
    }
    .icons{
-
-    font-size: 16px;
+     font-size: 16px;
     }
 
     .delIcon{
       display: flex;
       flex-direction: column;
       position: relative;
-      right: 350px;
+      right: 70px;
     }
     .imggg{
-
       height: 170px;
-
       position: relative;
-
       left: 0px;
-
     }
     
     .form-container{
@@ -497,6 +484,7 @@ a{
     .iconUPD{
      margin:5px 10px; 
      position: relative;
-     left: 185px;
+     left: 310px;
+     width: 7px;
     }
 }
