@@ -1,8 +1,10 @@
 const express = require("express")
 const getRecipe = express.Router()
-const { fetchUser, upload } = require("../middleware/middleware");
+const { fetchUser } = require("../middleware/middleware");
 const { recipeModell } = require("../models/recipe");
+const multer = require("multer");
 
+const upload = multer();
 
 getRecipe.get("/recipe", async (req,res)=>{
   const recipes = await recipeModell.find({}).populate("user","name")
@@ -29,7 +31,7 @@ getRecipe.get("/recipe/:id", async(req,res)=>{
   }
   res.json({found})
 })
-getRecipe.put("/update/:id",async(req,res)=>{
+getRecipe.put("/update/:id",upload.none(),async(req,res)=>{
   try {
     let {name , description, ingredients, image} = req.body 
     console.log("req.body", req.body)
