@@ -33,12 +33,10 @@ getRecipe.put("/update/:id",async(req,res)=>{
   try {
     let {name , description, ingredients} = req.body 
     let updatedREC = {}
-    console.log(req.body)
     if(name){updatedREC.name = name}
     if(description){updatedREC.description = description}
     if(req.file){updatedREC.image = `Images/${req.file.filename}`}
     if(ingredients){updatedREC.ingredients = ingredients}
-    console.log(updatedREC)
     let recipeToBeUpdated = await recipeModell.findById(req.params.id)
     recipeToBeUpdated  = await  recipeModell.findByIdAndUpdate(req.params.id,{$set: updatedREC}, {new: true})
      res.json({recipeToBeUpdated}) 

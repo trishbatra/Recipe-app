@@ -8,10 +8,10 @@ const path = require("path")
 postRecipe.post("/post",  fetchUser, async  (req,res)=>{
     try {
         let {name , description, ingredients, image} = req.body 
-        if(!name || !description || !ingredients){
+        console.log(req.body)
+        if(!name || !description || !ingredients|| !image){
             return res.status(400).json({err: "Bhai yaar detaisl ton dalde recipe ki😤"})
         }
-        
         console.log(req.file)
         const rec = new recipeModell({name , description, image : image, ingredients, user: req.user})
         let createdRecipe = await rec.save()

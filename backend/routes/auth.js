@@ -25,7 +25,7 @@ auth.post("/createUser", body('email').isEmail(),
         let modifiedPassword =  bcrypt.hashSync(pass, theSalt)
         let createdUser = {name: name, email : email, password: modifiedPassword}
         let a = await userModel.create(createdUser)
-        console.log(a.id)
+        // console.log(a.id)
         let payload =  {
             user: {id: a.id} 
         }
