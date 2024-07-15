@@ -30,6 +30,14 @@ const Home = () => {
 
     }
   }, [])
+  useEffect(() => {
+    const wakeUpServer = async () => {
+      await fetch(`${process.env.REACT_APP_backend_url}getrecipe/recipe`);
+    };
+  
+    wakeUpServer();
+  }, []);
+  
   function setR(arr){
     seturRecipes(arr)
   }
