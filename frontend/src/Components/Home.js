@@ -11,7 +11,6 @@ import Btn from './Btn';
 
 // import './././'
 const Home = () => {
-  console.log("trish",process.env.REACT_APP_trish)
   const theForm = useRef(null)
   const [urRecipes, seturRecipes] = useState([])
   const [isDisabled, setisDisabled] = useState(false)
@@ -80,7 +79,6 @@ const Home = () => {
     }
   }
   function updateRecipe() {
-    console.log(localStorage.getItem("Id"))
     const formData = new FormData()
     if(updateRecipe.name !== ""){
       formData.append("name",updatedRecipe.name)
@@ -94,7 +92,6 @@ const Home = () => {
     if(updateRecipe.image !== null){
       formData.append("image",updatedRecipe.image)
     }
-    console.log(formData.name)
     fetch(`${process.env.REACT_APP_backend_url}getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
@@ -131,11 +128,9 @@ const Home = () => {
 
   function handleOnChange(e){
       setupdatedRecipe({ ...updatedRecipe, [e.target.name] : e.target.value} )
-      console.log(updatedRecipe)
   }
   function handleFileChange(e){
     setupdatedRecipe({...updatedRecipe, image: e.target.files[0]})
-    console.log(updatedRecipe)
   }
   function closee(){
     theForm.current.style.display = "none"
@@ -146,7 +141,6 @@ const Home = () => {
     }
   }
   const hideIt = (e,ref)=>{
-    console.log(ref.current.disabled)
     if(ref.current.disabled){
       setisDisabled(false)
       

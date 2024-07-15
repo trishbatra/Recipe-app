@@ -14,7 +14,6 @@ const Postrecipe = () => {
 
   const handleFileChange = (e) => {
     setrecipeDetail({ ...recipeDetail, image: e.target.files[0] });
-    console.log({ ...recipeDetail, image: e.target.files[0] });
   };
   async function sumbitRecipes(e){
     e.preventDefault()
@@ -42,7 +41,6 @@ const Postrecipe = () => {
     })
     let res = await post.json()
     if(res){
-      console.log(recipeDetail.image)
       toast('Post succesful', {
         position: "bottom-center",
         autoClose: 500,
@@ -62,7 +60,6 @@ const Postrecipe = () => {
   }
   function handleOnChange(e){
     setrecipeDetail({ ...recipeDetail, [e.target.name] : e.target.value} )
-    console.log({ ...recipeDetail, [e.target.name] : e.target.value} )
   }
   return (
     <>

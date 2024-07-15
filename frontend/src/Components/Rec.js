@@ -2,12 +2,25 @@ import React, { useContext } from 'react'
 import recipeContext from '../Context/recipeContext'
 import Nav from './Nav'
 import '../mainrecipe.css'
+import { Hourglass } from 'react-loader-spinner'
 // import MainImages from "./MainImages/1720167103101.jpg"
 const Rec = (props) => {
   const object = useContext(recipeContext)
   let {obh} = object
   return (
     <div>
+      {Object.keys(obh).length === 0 &&<p style={{textAlign: "center", fontFamily: "20px"}} > Fetching Recipe .... </p> }
+      {
+        Object.keys(obh).length === 0 && <div style={{textAlign: "center", fontSize: "20px"}} > <Hourglass
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="hourglass-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        colors={['#306cce', '#72a1ed']}
+        /></div>
+      }
      <Nav/>
      <div className="myrec">
       <img  className='imgg' src={`${obh.image}`} alt="" />
