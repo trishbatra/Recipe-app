@@ -238,10 +238,12 @@ const Home = () => {
       <div className="container">
       <div className="about-us">
       <h2>About Us</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel sapien a justo tincidunt elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec a nibh id est laoreet congue. Aliquam ac lorem mi. Nullam dictum suscipit aliquam. Sed mollis ex at lacus consectetur luctus. Sed eget libero euismod, malesuada elit vel, ultrices tellus. Quisque quis sapien et lorem imperdiet fringilla vel a nibh. Duis interdum aliquet nisl, eget dictum odio tincidunt vitae.</p>
+      <p>I developed an application using the MERN stack (MongoDB,
+      Express.js, React.js, Node.js) that allows users to post recipes, view
+      other people's recipes, and browse and search for recipes.</p>
       <div className="social-icons">
-        <Link className='iconn' ><FaGithub/></Link>
-        <Link className='iconn' ><FaLinkedin/></Link>
+        <Link to={'https://github.com/trishbatra'} className='iconn' ><FaGithub/></Link>
+        <Link to={'https://www.linkedin.com/in/trish-batra-1088b1222/'} className='iconn' ><FaLinkedin/></Link>
       </div>
       </div>
     </div>
