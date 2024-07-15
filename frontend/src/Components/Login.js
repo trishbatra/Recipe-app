@@ -15,14 +15,23 @@ const Login = () => {
     })
     let jsonUSER = await user.json()
     localStorage.setItem("tkn", jsonUSER.jwtToken)
-    alert(` hello sir ${ jsonUSER.naam } `)
+    toast('User Created ✅', {
+      position: "bottom-center",
+      autoClose: 500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light"
+      });
   }
   return (
     <>
     <Nav/>
     <div className='a' >
       <h1> Log in  </h1>
-      <form>
+      <form >
       <div className="form-group">
         <label htmlFor="email">Email</label>
         <input  onChange={setVals} value={creds.email} type="email" id="email" name="email" required/>
@@ -31,7 +40,8 @@ const Login = () => {
         <label htmlFor="pass">Password</label>
         <input  onChange={setVals}  value={creds.pass} type="password" id="pass" name="pass" required/>
       </div>
-      <button  onClick={logUserIn} type="submit">Submit</button>
+      {/* <button  onClick={logUserIn} type="submit">Submit</button> */}
+      <input type="submit" onClick={logUserIn} />
       <Link  className='aa' to={"/signup"}> Dont have an account ? Sign Up </Link>
     </form>
     </div>
