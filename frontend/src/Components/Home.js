@@ -217,7 +217,7 @@ const Home = () => {
               return <div className='flex-child' >
                 <div className='delIcon'> 
                 <a href="#f" className='iconUPD'><BsPen size={25} onClick={()=>{setID(e._id)}}  /></a>
-                <AiFillDelete className='iconUPD'  size={25} onClick={()=>{deleteIt(e._id)}}  />
+                <span className='iconUPD' ><AiFillDelete  size={25} onClick={()=>{deleteIt(e._id)}}  /></span>
                 </div>
                 <img className='imggg' src={`${e.image}`} alt="" />
                 <h2> {e.name} </h2>

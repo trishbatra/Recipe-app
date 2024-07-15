@@ -228,7 +228,7 @@ footer {
     gap: 20px; 
     border-radius: 40px;
     padding: 30px 20px;
-    margin: 0px 150px;
+    margin: 0px 120px;
     /* justify-content: center; */
 }
 
@@ -400,7 +400,7 @@ a{
   position: relative;
   left: 270px;
   margin: 10px 10px;
-
+  cursor: pointer;
 }
 @media only screen and (max-width: 768px) {
   #img{
