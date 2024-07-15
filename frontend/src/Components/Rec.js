@@ -9,6 +9,7 @@ const Rec = (props) => {
   let {obh} = object
   return (
     <div>
+      <Nav/>
       {Object.keys(obh).length === 0 &&<p style={{textAlign: "center", fontFamily: "20px"}} > Fetching Recipe .... </p> }
       {
         Object.keys(obh).length === 0 && <div style={{textAlign: "center", fontSize: "20px"}} > <Hourglass
@@ -21,7 +22,6 @@ const Rec = (props) => {
         colors={['#306cce', '#72a1ed']}
         /></div>
       }
-     <Nav/>
      <div className="myrec">
       <img  className='imgg' src={`${obh.image}`} alt="" />
       <div className='childd'>

@@ -11,6 +11,7 @@
 .tooltipBoxNotDisabled{
   display: none;
 }
+
 .tooltipBox{
   background-color: #549090;
   padding: 15px 20px;
@@ -227,6 +228,7 @@ footer {
     gap: 20px; 
     border-radius: 40px;
     padding: 30px 20px;
+    margin: 0px 150px;
     /* justify-content: center; */
 }
 
