@@ -3,15 +3,23 @@
     height: 490px;
     width:  550px;
 }
+
 .rec-line{
   text-align: center;
   font-weight: bold;
   margin: 25px 0px;
 }
+.darkText{
+  color: #54ddbdc8;
+}
 .tooltipBoxNotDisabled{
   display: none;
 }
-
+.dark-bg{
+  background-color: #021526;
+  /* color: #EEEEEE; */
+  color: #54ddbdc8;
+}
 .tooltipBox{
   background-color: #549090;
   padding: 15px 20px;
@@ -19,6 +27,17 @@
   z-index: 1;
   box-shadow: 2px 2px 45px black;
   color: white ;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+
+}
+.tooltipBox-dark{
+  background-color: #021526;
+  padding: 15px 20px;
+  border-radius: 10px;
+  z-index: 1;
+  box-shadow: 2px 2px 45px black;
+  color:  #54ddbdc8;
   display: block;
   font-family: 'Montserrat', sans-serif;
 
@@ -67,6 +86,9 @@ body{
 .head{
     color: #549090;
 }
+.paraa-dark{
+  font-weight: bold;
+}
 .paraa{
   color: #549090;
   text-shadow: 4px 4px 130px #549090;
@@ -78,9 +100,26 @@ body{
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    border: 1px solid #ccc;
   }
-  
+  .containerr-dark {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #021526;
+    padding: 20px;
+    border-top: 1.5px solid beige;  
+  }
+  .hr-dark{
+    border: 1.5px solid beige ;
+    margin: 0px 100px;
+  }
+  .headd-dark{
+    font-size: 34px;
+    margin-bottom: 15px;
+    text-align: center;
+    background-color: #021526;
+  }
+
   img {
     width: 50%;
     margin-right: 20px;
@@ -108,6 +147,22 @@ body{
   .cards{
     padding: 35px;
     margin: 0px 30px;
+  }
+  .cards-dark{
+    padding: 35px;
+    background-color: #021526;
+    margin: 0px 30px;
+  }
+  .card-dark{
+    height: 550px;
+    width: 50%;
+    display: inline-block;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    border-radius: 55px;
+    background-color: #021526;
+    color: #54ddbdc8;
   }
   .card {
     height: 550px;
@@ -143,10 +198,31 @@ body{
     transition: background-color 0.3s;
     border: none;
   }
-  
+  .button-dark{
+    display: inline-block;
+    padding: 20px 15px;
+    color: #54ddbdc8;
+    background-color: #021526;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: none;
+  }
+  .button-dark:hover {
+    background-color: #072844;
+    color: #54ddbdc8;
+  }
+
   .button:hover {
     background-color: #E8E8E8;
     color: #549090;
+  }
+  .button-dark:disabled{
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    pointer-events: none;
   }
   
   .button:disabled,
@@ -167,19 +243,40 @@ footer {
   background-color: #f7f7f7;
   color: #549090;
   padding: 30px 0;
+  margin: 0;
+  width: 100%;
 }
 
 .container {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   justify-content: center;
   color: #549090;
+  /* background-color: #f7f7f7; */
   align-items: center;
 }
-
+.container-dark{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #070F2B;
+  align-items: center;
+  border-top: 1.5px solid beige;
+}
 .about-us {
+  /* flex-basis: 5%; */
+  margin-bottom: 30px;
+  width: 100%;
+
+  /* background-color: #f7f7f7; */
+
+}
+
+.about-us-dark{
   flex-basis: 45%;
   margin-bottom: 30px;
+  color: #54ddbdc8;
 }
 
 .about-us h3 {
@@ -202,6 +299,9 @@ footer {
   text-align: center;
   margin: 20px;
 }
+.social-icons-dark{
+  color: #54ddbdc8;
+}
 .iconn{
   margin: 7px;
   font-size: 19px;
@@ -223,7 +323,7 @@ footer {
 }
 .specific-recipes {
     display: grid;
-    grid-template-columns: repeat(3, 420px);
+    grid-template-columns: repeat(3, 450px);
     gap: 20px; 
     border-radius: 40px;
     padding: 30px 20px;
@@ -254,10 +354,10 @@ textarea::placeholder {
     left: 0px;
 }
 .flex-child {
-  padding: 12px;
+  padding: 32px;
   border: 2px #76bebe solid;
   border-radius: 55px;
-  margin-left: 9px;
+  margin-left: 39px;
   text-align: center;
 }
 form {
@@ -385,9 +485,10 @@ a{
 
 }
 .imggg{
-  border-radius: 20px;
+  border-radius: 30px;
   position: relative;
-  height: 230px;
+  height: 250px;
+  width: 200px;
   max-width: 10px 0px;
 }
 .btn{

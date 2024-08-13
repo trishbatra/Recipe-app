@@ -30,7 +30,7 @@ const Login = () => {
        setloading(false)
         return
     }
-    let user = await  fetch(`${process.env.REACT_APP_backend_url}auth/login`, {
+    let user = await  fetch(`http://localhost:5001/auth/login`, {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({mail : creds.email, pass: creds.pass})

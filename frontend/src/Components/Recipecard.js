@@ -7,7 +7,7 @@ const Recipecard = (props) => {
   const [r, setr] = useState([])
 
     useEffect(() => {
-      fetch(`${process.env.REACT_APP_backend_url}getrecipe/recipe`)
+      fetch(`http://localhost:5001/getrecipe/recipe`)
       .then(res=> res.json())
       .then(ress=> setr(ress))
       .catch(err=>alert(err))

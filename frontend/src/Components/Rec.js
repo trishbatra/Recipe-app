@@ -6,9 +6,9 @@ import { Hourglass } from 'react-loader-spinner'
 // import MainImages from "./MainImages/1720167103101.jpg"
 const Rec = (props) => {
   const object = useContext(recipeContext)
-  let {obh} = object
+  let {obh,dark,setdark} = object
   return (
-    <div>
+    <>
       <Nav/>
       {Object.keys(obh).length === 0 &&<p style={{textAlign: "center", fontFamily: "20px"}} > Fetching Recipe .... </p> }
       {
@@ -22,9 +22,10 @@ const Rec = (props) => {
         colors={['#306cce', '#72a1ed']}
         /></div>
       }
-     <div className="myrec">
+    <div className={dark? "body-dark": ""}>
+     <div className={dark? "body-dark myrec-dark": "myrec"}>
       <img  className='imgg' src={`${obh.image}`} alt="" />
-      <div className='childd'>
+      <div className={dark? 'childd-dark':'childd'}>
       <h2> {obh.name} </h2>
       <b> Recipe </b>
       <p> {obh.description} </p>
@@ -32,6 +33,7 @@ const Rec = (props) => {
       </div>
      </div>
     </div>
+    </>
   )
 }
 

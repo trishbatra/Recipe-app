@@ -1,4 +1,4 @@
-import {React, useEffect, useState , useRef} from 'react'
+import {React, useEffect, useState , useRef, useContext} from 'react'
 import Nav from './Nav'
 import '../home.css'
 import { Link } from 'react-router-dom'
@@ -9,9 +9,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Btn from './Btn';
 import { ColorRing } from 'react-loader-spinner';
+import recipeContext from '../Context/recipeContext';
 
 const Home = () => {
   const theForm = useRef(null)
+  const {dark , setdark}  = useContext(recipeContext)
   const [urRecipes, seturRecipes] = useState([])
   const [isDisabled, setisDisabled] = useState(false)
   const [isloading, setisloading] = useState(false)
@@ -19,7 +21,7 @@ const Home = () => {
   const textRef = useRef(null)
   useEffect(() => {
     if (localStorage.getItem("tkn")) {
-      fetch(`${process.env.REACT_APP_backend_url}getrecipe/specificrecipe`, {
+      fetch(`http://localhost:5001/getrecipe/specificrecipe`, {
         method: "GET",
         headers: { 
           'content-type': "application/json",
@@ -33,7 +35,7 @@ const Home = () => {
   }, [])
   useEffect(() => {
     const wakeUpServer = async () => {
-      await fetch(`${process.env.REACT_APP_backend_url}getrecipe/recipe`);
+      await fetch(`http://localhost:5001/getrecipe/recipe`);
     };
   
     wakeUpServer();
@@ -43,7 +45,7 @@ const Home = () => {
     seturRecipes(arr)
   }
   let deleteIt = async (id)=>{
-    fetch(`${process.env.REACT_APP_backend_url}getrecipe/delete/${id}`,{method : 'DELETE'})
+    fetch(`http://localhost:5001/getrecipe/delete/${id}`,{method : 'DELETE'})
     .then(res=>res.json())
     .then(ress=>handleResponse(ress.recipeToDelete))
     .catch(err=>toast.error(`${err}`, {
@@ -108,7 +110,7 @@ const Home = () => {
       console.log(pair[0] + ': ' + pair[1]);
     }
     console.log(formData)
-    fetch(`${process.env.REACT_APP_backend_url}getrecipe/update/${localStorage.getItem("Id")}`, {
+    fetch(`http://localhost:5001/getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
     })
@@ -166,35 +168,36 @@ const Home = () => {
     }
   }
   return (
-    <>
+    <div className={dark? "dark-bg": ""}>
         <Nav ur={setR }/>
-        <div className="containerr">
+        <div  className={dark ? "containerr-dark" :"containerr"}>
         <img  id='img' src="Images/w.png" alt=''/>
         <div className="descriptionn">
-          <h2 className='headd'>KitchenExchange </h2>
-          <p className='paraa'>  Welcome to our recipe sharing app, where you can discover and share your favorite recipes with foodies from around the world! Whether you're a professional chef, a home cook, or just someone who loves to experiment in the kitchen, this app is the perfect platform to showcase your culinary skills.
+          <h2 className={dark? "headd-dark darkText" :'headd'}>KitchenExchange </h2>
+          <p className={dark? "paraa-dark darkText" :'paraa'}>  Welcome to our recipe sharing app, where you can discover and share your favorite recipes with foodies from around the world! Whether you're a professional chef, a home cook, or just someone who loves to experiment in the kitchen, this app is the perfect platform to showcase your culinary skills.
 
           With our user-friendly interface, you can easily upload your recipes, including photos, ingredients, and step-by-step instructions. 
           
           So what are you waiting for? Join our recipe sharing app today and let's cook up something delicious together!</p>
         </div>
         </div>
-        <h2 className='headd' >What would you like to do?</h2>
-        <div className="cards">
+        <hr className='hr-dark' />
+        <h2 className={dark? "headd-dark darkText" :'headd'} >What would you like to do?</h2>
+        <div className={dark? "cards-dark darkText":"cards"}>
 
        
         <div  id='card1' className="card" >
           <div className="card-content">
             <h2>Post a Recipe</h2>
-            { isDisabled ? <p  className='tooltipBox'> First login to Post Recipes </p> : <p  className='tooltipBoxNotDisabled'> First login to Post Recipes </p>  }
+            { isDisabled ? <p  className={dark? 'tooltipBox-dark': 'tooltipBox'}> First login to Post Recipes </p> : <p  className='tooltipBoxNotDisabled'> First login to Post Recipes </p>  }
             
             {!localStorage.getItem("tkn") &&  
             <div onMouseEnter={(e)=>{makeItVisible(e,textRef)}} onMouseLeave={(e)=>{hideIt(e,textRef)}} >
-            <button  ref={textRef} title='please login first to post a recipe'  className="button" disabled="true" >
+            <button  ref={textRef} title='please login first to post a recipe'  className={dark ? "button-dark darkText" :"button"} disabled="true" >
               <Link  to="/post" >Get Started</Link>
             </button> 
             </div>}
-            {localStorage.getItem("tkn") &&  <Link  to="/post" ><button className="button" >
+            {localStorage.getItem("tkn") &&  <Link  to="/post" ><button className={dark ? "button-dark" :"button"} >
               Get Started
             </button> 
             </Link>
@@ -206,7 +209,7 @@ const Home = () => {
       <div  id='card2' className="card" >
         <div className="card-content">
           <h2>See Other Recipes</h2>
-          <button className="button" >
+          <button className={dark ? "button-dark" :"button"} >
                <Link to="/recipes"   title="Explore recipes of other users"  >Browse Now</Link>
           </button>
         </div>
@@ -224,6 +227,7 @@ const Home = () => {
               <input type="file" className="update"  onChange={handleFileChange} id="image" name="image" placeholder="Enter image URL"/>
               <label for="ingredients">Ingredients</label>
               <textarea className="update"  onChange={handleOnChange} id="ingredients" name="ingredients" placeholder="Enter recipe ingredients"></textarea>
+              {isloading && <p> recipe is getting updated please wait.... </p>}
               {isloading && <ColorRing
                 visible={true}
                 height="80"
@@ -233,9 +237,6 @@ const Home = () => {
                 wrapperClass="color-ring-wrapper"
                 colors={['#549090', '#549090', '#549090', '#549090', '#549090']}
                 />
-              }
-
-              {isloading && <p> recipe is getting updated please wait.... </p>
               }
              <button  id='updateBTN' onClick={updateRecipe}> Update </button>
         </div>  
@@ -258,9 +259,9 @@ const Home = () => {
         </div>}
             <img src="../../public/images/cardd.jpg" alt="" srcset="" />
       </div>
-      <footer>
-      <div className="container">
-      <div className="about-us">
+      <footer className={dark ? "container-dark" :"container"}>
+      <div >
+      <div className={dark? 'about-us-dark':"about-us"}>
       <h2>About Us</h2>
       <p>I developed an application using the MERN stack (MongoDB,
       Express.js, React.js, Node.js) that allows users to post recipes, view
@@ -272,7 +273,7 @@ const Home = () => {
       </div>
     </div>
   </footer>
-    </>
+    </div>
   )
 }
 

@@ -1,3 +1,4 @@
+
 nav {
   display: flex;
   position: sticky;
@@ -6,6 +7,43 @@ nav {
   padding: 20px;
   color: #CBE4DE;
   background-color: #2E4F4F ;
+}
+.nav-dark{
+  background-color: #070F2B;
+  border-bottom: 1.5px solid beige ;
+  padding: 12px;
+}
+.navbar-label-dark{
+  font-size: 24px;
+  font-weight: bold;
+  color: #87e1ccc8;
+}
+.navbar-links-dark{
+  display: flex;
+  justify-content: flex-end;
+  color: #87e1ccc8;
+  font-size: 18px;
+  margin-left: 20px;
+  text-decoration: none;
+  margin: 7px;
+}
+.navbar-links-dark a{
+  display: flex;
+  justify-content: flex-end;
+  color: #87e1ccc8;
+  margin: 10px;
+}
+.navbar-links-dark a:hover {
+  color: #54ddbdc8;
+  text-shadow: 5px 5px  #035642c8;
+}
+.navBtn-dark{
+  background-color:#2E4F4F ;
+  border: none;
+  font-size: 17px;
+  margin-left: 5px;
+  color: #87e1ccc8;
+  cursor: pointer;
 }
 .navbar-label {
   font-size: 24px;
