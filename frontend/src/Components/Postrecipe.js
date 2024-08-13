@@ -35,7 +35,7 @@ const Postrecipe = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 
   }
-    let post = await fetch(`http://localhost:5001/postrecipe/post`, {
+    let post = await fetch(`${process.env.REACT_APP_backend_url}postrecipe/post`, {
       method: 'POST',
       headers: {
         'auth-token': localStorage.getItem("tkn")

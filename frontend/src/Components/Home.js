@@ -21,7 +21,7 @@ const Home = () => {
   const textRef = useRef(null)
   useEffect(() => {
     if (localStorage.getItem("tkn")) {
-      fetch(`http://localhost:5001/getrecipe/specificrecipe`, {
+      fetch(`${process.env.REACT_APP_backend_url}getrecipe/specificrecipe`, {
         method: "GET",
         headers: { 
           'content-type': "application/json",
@@ -35,7 +35,7 @@ const Home = () => {
   }, [])
   useEffect(() => {
     const wakeUpServer = async () => {
-      await fetch(`http://localhost:5001/getrecipe/recipe`);
+      await fetch(`${process.env.REACT_APP_backend_url}getrecipe/recipe`);
     };
   
     wakeUpServer();
@@ -45,7 +45,7 @@ const Home = () => {
     seturRecipes(arr)
   }
   let deleteIt = async (id)=>{
-    fetch(`http://localhost:5001/getrecipe/delete/${id}`,{method : 'DELETE'})
+    fetch(`${process.env.REACT_APP_backend_url}getrecipe/delete/${id}`,{method : 'DELETE'})
     .then(res=>res.json())
     .then(ress=>handleResponse(ress.recipeToDelete))
     .catch(err=>toast.error(`${err}`, {
@@ -110,7 +110,7 @@ const Home = () => {
       console.log(pair[0] + ': ' + pair[1]);
     }
     console.log(formData)
-    fetch(`http://localhost:5001/getrecipe/update/${localStorage.getItem("Id")}`, {
+    fetch(`${process.env.REACT_APP_backend_url}getrecipe/update/${localStorage.getItem("Id")}`, {
       method: "PUT",
       body: formData,
     })
@@ -184,11 +184,9 @@ const Home = () => {
         <hr className='hr-dark' />
         <h2 className={dark? "headd-dark darkText" :'headd'} >What would you like to do?</h2>
         <div className={dark? "cards-dark darkText":"cards"}>
-
-       
         <div  id='card1' className="card" >
           <div className="card-content">
-            <h2>Post a Recipe</h2>
+            {dark? <h2 style={{color: "#54ddbdc8"}} >  Post a Recipe  </h2>:<h2>Post a Recipe</h2>}
             { isDisabled ? <p  className={dark? 'tooltipBox-dark': 'tooltipBox'}> First login to Post Recipes </p> : <p  className='tooltipBoxNotDisabled'> First login to Post Recipes </p>  }
             
             {!localStorage.getItem("tkn") &&  
@@ -208,7 +206,7 @@ const Home = () => {
 
       <div  id='card2' className="card" >
         <div className="card-content">
-          <h2>See Other Recipes</h2>
+          {dark?  <h2  style={{color: "#54ddbdc8"}} >See Other Recipes</h2> : <h2>See Other Recipes</h2>}
           <button className={dark ? "button-dark" :"button"} >
                <Link to="/recipes"   title="Explore recipes of other users"  >Browse Now</Link>
           </button>

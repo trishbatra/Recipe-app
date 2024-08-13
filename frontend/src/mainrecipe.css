@@ -37,6 +37,32 @@
   background-color: #070F2B;
 }
 
+.darkBTN{
+  padding: 20px 15px;
+  color: #54ddbdc8;
+  background-color: #021526;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  border: 1px solid #549090;
+}
+.darkBTN:hover{
+  background-color: #072844;
+  color: #54ddbdc8;
+}
+.BTN{
+  display: inline-block;
+  padding: 20px 15px;
+  background-color: #549090;
+  color: #E8E8E8;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  border: none;
+}
+
 @media only screen and (max-width: 768px) {
   .imgg{
     height: 250px;
